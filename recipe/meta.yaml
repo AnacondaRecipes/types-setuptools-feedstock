@@ -37,6 +37,7 @@ test:
 
 about:
   home: https://github.com/python/typeshed
+  description: Typing stubs for setuptools
   dev_url: https://github.com/python/typeshed
   doc_url: https://typing.readthedocs.io/
   summary: Typing stubs for setuptools
