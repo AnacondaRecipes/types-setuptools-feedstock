@@ -1,26 +1,24 @@
-{% set version = "69.0.0.20240125" %}
+{% set name = "types-setuptools" %}
+{% set version = "80.9.0.20250822" %}
 
 package:
-  name: types-setuptools
+  name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  - url: https://raw.githubusercontent.com/python/typeshed/main/LICENSE
-    sha256: 295f8538c94ae5c3043301cf7cff1c852dab6a786a8ddee471e061b40d5ecabe
-  - url: https://pypi.io/packages/source/t/types-setuptools/types-setuptools-{{ version }}.tar.gz
-    sha256: 22ad498cb585b22ce8c97ada1fccdf294a2e0dd7dc984a28535a84ea82f45b3f
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name|replace('-', '_') }}-{{ version }}.tar.gz
+  sha256: 070ea7716968ec67a84c7f7768d9952ff24d28b65b6594797a464f1b3066f965
 
 build:
   number: 0
-  skip: true # [py<36]
+  skip: true # [py<39]
   script: {{ PYTHON }} -m pip install --no-deps --no-build-isolation . -vv
 
 requirements:
   host:
     - pip
     - python
-    - setuptools
-    - wheel
+    - setuptools >=77.0.3
   run:
     - python
 
@@ -31,20 +29,23 @@ test:
     - setuptools
   commands:
     - pip check
-    - test -f $SP_DIR/pkg_resources-stubs/__init__.pyi # [unix]
-    - if not exist %SP_DIR%\\pkg_resources-stubs\\__init__.pyi exit 1 # [win]
-    - pip check
+    - test -f $SP_DIR/pkg_resources/__init__.py  # [unix]
+    - test -f $SP_DIR/setuptools-stubs/__init__.pyi  # [unix]
+    - test -f $SP_DIR/distutils-stubs/__init__.pyi  # [unix]
+    - if not exist %SP_DIR%\\pkg_resources\\__init__.py exit 1  # [win]
+    - if not exist %SP_DIR%\\setuptools-stubs\\__init__.pyi exit 1  # [win]
+    - if not exist %SP_DIR%\\distutils-stubs\\__init__.pyi exit 1  # [win]
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
 
 about:
   home: https://github.com/python/typeshed
   description: Typing stubs for setuptools
-  dev_url: https://github.com/python/typeshed
-  doc_url: https://typing.readthedocs.io/
   summary: Typing stubs for setuptools
   license: Apache-2.0 AND MIT
   license_file: LICENSE
   license_family: Other
-
+  dev_url: https://github.com/python/typeshed
+  doc_url: https://typing.readthedocs.io
 
 extra:
   recipe-maintainers:
