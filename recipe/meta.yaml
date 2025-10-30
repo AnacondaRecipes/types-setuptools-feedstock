@@ -25,6 +25,7 @@ requirements:
 test:
   requires:
     - pip
+    - setuptools  # [py>=314]
   imports:
     - setuptools
   commands:
