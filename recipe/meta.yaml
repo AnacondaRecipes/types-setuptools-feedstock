@@ -1,5 +1,5 @@
 {% set name = "types-setuptools" %}
-{% set version = "80.9.0.20250822" %}
+{% set version = "80.9.0.20251221" %}
 
 package:
   name: {{ name|lower }}
@@ -7,10 +7,10 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name|replace('-', '_') }}-{{ version }}.tar.gz
-  sha256: 070ea7716968ec67a84c7f7768d9952ff24d28b65b6594797a464f1b3066f965
+  sha256: 05da599f5a062bbee3e83d60318576ba23111a768b7a2e46aa11644109c5d17f
 
 build:
-  number: 1
+  number: 0
   skip: true  # [py<39]
   script: {{ PYTHON }} -m pip install --no-deps --no-build-isolation . -vv
 
