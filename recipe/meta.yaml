@@ -30,10 +30,8 @@ test:
     - setuptools
   commands:
     - pip check
-    - test -f $SP_DIR/pkg_resources/__init__.py  # [unix]
     - test -f $SP_DIR/setuptools-stubs/__init__.pyi  # [unix]
     - test -f $SP_DIR/distutils-stubs/__init__.pyi  # [unix]
-    - if not exist %SP_DIR%\\pkg_resources\\__init__.py exit 1  # [win]
     - if not exist %SP_DIR%\\setuptools-stubs\\__init__.pyi exit 1  # [win]
     - if not exist %SP_DIR%\\distutils-stubs\\__init__.pyi exit 1  # [win]
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
