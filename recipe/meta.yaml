@@ -1,24 +1,24 @@
 {% set name = "types-setuptools" %}
-{% set version = "80.9.0.20250822" %}
+{% set version = "82.0.0.20260518" %}
 
 package:
-  name: {{ name|lower }}
+  name: {{ name }}
   version: {{ version }}
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name|replace('-', '_') }}-{{ version }}.tar.gz
-  sha256: 070ea7716968ec67a84c7f7768d9952ff24d28b65b6594797a464f1b3066f965
+  sha256: 3b743cfe63d0981ea4c15b90710fc1ed41e3464a537d51e705be514e891c1d07
 
 build:
-  number: 1
-  skip: true  # [py<39]
+  number: 0
   script: {{ PYTHON }} -m pip install --no-deps --no-build-isolation . -vv
+  skip: true  # [py<310]
 
 requirements:
   host:
     - pip
     - python
-    - setuptools >=77.0.3
+    - setuptools >=82.0.1
   run:
     - python
 
